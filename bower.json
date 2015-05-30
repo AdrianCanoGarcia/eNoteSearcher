@@ -1,0 +1,19 @@
+{
+  "name": "eNoteSearcher",
+  "version": "0.0.0",
+  "homepage": "https://github.com/AdrianCanoGarcia/eNoteSearcher",
+  "authors": [
+    "Adrian Cano <adrianmota93@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.9.2"
+  }
+}
