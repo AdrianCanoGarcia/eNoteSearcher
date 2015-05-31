@@ -7,11 +7,27 @@ and open the template in the editor.
     Created on : 28-may-2015, 19:33:05
     Author     : adrian
 */
-
-
 #prueba{
     text-align: center;
 }
 #logo{
-      height: 140px;
+    height: 140px;
 }
+.alert{
+    position:relative;
+    top:20px;
+    display:none;
+}
+.form-control:focus {
+    border-color: rgb(86, 7, 205);
+}
+#helpIcon{
+    display: flex;
+    cursor: pointer;
+    top: 10px;
+    left: 14px;
+    font-size: 25px;
+}
+#helpIcon:hover{
+    color:rgb(86, 7, 205);
+}    

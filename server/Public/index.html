@@ -16,9 +16,13 @@
                     <!--<h1>(Logo)</h1>-->
                     <img id="logo" src="img/logo.1.3.png">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-search" style="cursor:pointer" onclick="sendData()"></i></span>
-                        <input type="text" class="form-control" placeholder="ex: Trigonometría" aria-describedby="sizing-addon1">
+                        <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-search" style="cursor:pointer" onclick="checkEmptyField()"></i></span>
+                        <input id="textToFind" type="text" class="form-control" placeholder="ex: Trigonometría" onkeypress="checkIfEnter(event)" aria-describedby="sizing-addon1" required>
+                        <span id="helpIcon" class="glyphicon glyphicon-question-sign" onclick="showHelp()"></span>
                     </div>
+                    
+                    <div class="alert alert-info" id="alert2" role="alert">Type the text you want to search into our notes databases</div>
+                    <div class="alert alert-danger" id="alert1" role="alert">No data selected</div>
                 </div>
             </div>
 

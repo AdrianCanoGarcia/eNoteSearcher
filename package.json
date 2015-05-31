@@ -26,6 +26,7 @@
     "fs-extra": "~0.12.0",
     "body-parser": "~1.9.2",
     "serve-favicon": "~2.1.6",
-    "debug": "~2.1.0"
+    "debug": "~2.1.0",
+    "elasticsearch": "~4.1.0"
   }
 }

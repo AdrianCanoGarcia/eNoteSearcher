@@ -5,11 +5,23 @@
  */
 
 
-function sendData() {
+function checkIfEnter(event){
+    if(event.charCode==13) checkEmptyField();
+}
+function checkEmptyField(){
+    var textValue= $('#textToFind').val();
+    textValue=="" ? $('#alert1').fadeIn(): sendData(textValue);
+}
+function showHelp(){
+    $('#alert2').fadeIn()
+}
+
+
+function sendData(textValue) {
     $.ajax({
         method: "GET",
         url: "/routes/",
-        data: {name: "John", location: "Boston"}
+        data: {value: textValue, location: "Boston"}
     })
             .done(function (msg) {
                 alert("Data Saved: " + msg);
