@@ -13,10 +13,8 @@ function checkEmptyField(){
     textValue=="" ? $('#alert1').fadeIn(): sendData(textValue);
 }
 function showHelp(){
-    $('#alert2').fadeIn()
+    $('#alert2:visible').length==0 ? $('#alert2').fadeIn() : $('#alert2').fadeOut();
 }
-
-
 function sendData(textValue) {
     $.ajax({
         method: "GET",
