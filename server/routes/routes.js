@@ -1,42 +1,65 @@
 var express = require('express');
 var router = express.Router();
 var elasticsearch = require('elasticsearch');
+var fs = require('fs');
+var ruta=process.cwd()+"/server/fichero.txt";
+
+var texto;
+
+fs.readFile(ruta, 'utf8', function(err, data) {
+    if( err ){
+        console.log("ERROR "+err);
+    }
+    else{
+        texto=data;
+    }
+});
 
 
 /* ROUTES */
 router.get('/', buscarTexto);
 
-
-
 function buscarTexto(req, res) {
     //res.json("holi");
-    res.json(req.query.value);
-    createClient(req.query.value);
+    //res.json(req.query.value);
+    /*createClient(req.query.value,function(response){
+        res.json(response);
+    });*/
+    createClient(req.query.value, res);
+    
+    createClient(req.query.value,function(parametro){
+        res.json()
+    });
+    
 }
-function createClient(texto) {
+
+
+
+
+
+function createClient(texto1/*,callback*/,res) {
     var client = new elasticsearch.Client({
         host: 'localhost:9200',
         log: 'trace'
     });
-    createIndex(client,texto);
+    return search(client,texto1/*,callback*/,res);
+    //deleteIndex(client);
 }
 function createIndex(client) {
     client.index({
-        index: 'Notes',
+        index: 'notes',
         type: 'document',
         body: {
-            name: 'Los Cobardes',
-            text: 'Solos se quedan los hombres al calor de las batallas,\n\
-                   y vosotros, lejos de ellas,queréis ocultar la infamia,\n\
-                   pero el color de cobardes no se os irá de la cara.'
+            name: 'Tema 2',
+            text: texto
         }
     }, function (error, response) {
         console.log(response);
     });
 }
-function buscar(client,texto) {
+function search(client,texto/*,callback*/,res) {
     client.search({
-        index: 'sample',
+        index: 'notes',
         type: 'document',
         body: {
             query: {
@@ -46,10 +69,13 @@ function buscar(client,texto) {
             }
         }
     }).then(function (resp) {
-        console.log(resp.hits.hits[0]._source.text);
+        res.json(resp.hits.hits);
     }, function (err) {
         console.log(err.message);
     });
+}
+function deleteIndex(client){
+    client.indices.delete({index: 'indiceABorrar'});
 }
 
 

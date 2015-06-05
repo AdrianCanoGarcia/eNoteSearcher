@@ -19,10 +19,26 @@ function sendData(textValue) {
     $.ajax({
         method: "GET",
         url: "/routes/",
-        data: {value: textValue, location: "Boston"}
+        data: {value: textValue}
     })
-            .done(function (msg) {
-                alert("Data Saved: " + msg);
+            .success(function (msg) {
+                printResult(msg);
             });
+            
                 
 }
+function printResult(msg){
+    jQuery('#result').html('');
+    positionate()
+    msg.map(function(element){
+       $('#result').append("<div class='theme'><p class='title'>"+element._source.name+"</p><p class='content'>"+element._source.text.slice(0,500)+"...<a href='http://www.google.es'> Leer más"+"</p></div>");  
+    })
+    //$('#result').append("<p id='title'>"+msg[0]._source.name+"</p><p id='content'>"+msg[0]._source.text+"</p>");
+    
+}
+function positionate(){
+        //$('#result').css("border","solid 2px")
+        $('#container').css("margin-top","0px");
+        $('#logo1').css("height","95px");
+        $('.input-group').css("top", "-2px;");
+    }

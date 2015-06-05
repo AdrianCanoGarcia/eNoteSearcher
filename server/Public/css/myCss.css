@@ -7,11 +7,14 @@ and open the template in the editor.
     Created on : 28-may-2015, 19:33:05
     Author     : adrian
 */
-#prueba{
+#searherContainer{
     text-align: center;
 }
-#logo{
-    height: 140px;
+#container{
+    margin-top: 150px;
+}
+#logo1{
+    height: 135px;
 }
 .alert{
     position:relative;
@@ -22,12 +25,29 @@ and open the template in the editor.
     border-color: rgb(86, 7, 205);
 }
 #helpIcon{
-    display: flex;
     cursor: pointer;
-    top: 10px;
-    left: 14px;
+    top: 65px;
     font-size: 25px;
 }
 #helpIcon:hover{
     color:rgb(86, 7, 205);
-}    
+}
+@media (max-width: 500px){
+    #logo1{
+    height: 110px;
+    }
+}
+#helpIcon {
+  top: 40px;
+}
+.title{
+  text-align: center;
+  font-weight: bold;
+  font-size: 17px;
+}
+.theme{
+  margin-top: 10px;
+  border:solid 1px grey;
+  padding: 10px;
+}
+
