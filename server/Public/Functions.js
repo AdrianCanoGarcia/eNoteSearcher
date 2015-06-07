@@ -31,7 +31,9 @@ function printResult(msg){
     jQuery('#result').html('');
     positionate()
     msg.map(function(element){
-       $('#result').append("<div class='theme'><p class='title'>"+element._source.name+"</p><p class='content'>"+element._source.text.slice(0,500)+"...<a href='http://www.google.es'> Leer más"+"</p></div>");  
+        var title=element._source.title;
+        var content=element._source.text;
+       $('#result').append("<div class='theme'><p class='title'>"+title+"</p><p class='content'>"+content+"...<a onclick='loadAllContent("+element._source.title+")'> Leer más"+"</p></div>");  
     })
     //$('#result').append("<p id='title'>"+msg[0]._source.name+"</p><p id='content'>"+msg[0]._source.text+"</p>");
     
@@ -41,4 +43,9 @@ function positionate(){
         $('#container').css("margin-top","0px");
         $('#logo1').css("height","95px");
         $('.input-group').css("top", "-2px;");
-    }
+    
+}
+function loadAllContent(){
+    alert("holagitano");
+}
+    

@@ -27,10 +27,6 @@ function buscarTexto(req, res) {
     });*/
     createClient(req.query.value, res);
     
-    createClient(req.query.value,function(parametro){
-        res.json()
-    });
-    
 }
 
 
@@ -43,15 +39,52 @@ function createClient(texto1/*,callback*/,res) {
         log: 'trace'
     });
     return search(client,texto1/*,callback*/,res);
-    //deleteIndex(client);
+    // deleteIndex(client);
+    //putMappings(client);
+    //createIndex(client);
+    
+}
+function putMappings(client){
+    client.indices.create({
+    index:"notes",
+    type: "document",
+    "settings" : {
+        "analysis" : {
+            "analyzer" : {
+                "myAnalyzer" : {"tokenizer" : "standard","filter" : [ "snowball", "asciifolding"/*, "ebes_stop"*/ ]}
+            }/*,
+            "filter" : {
+                "ebes_stop" : {"type" : "stop","stopwords_path" : "ebes_stop.txt"}
+            }*/
+        }
+    },
+    "mappings" : {
+        "note": {
+                "properties": {
+                    "title": {
+                                "type": "string",
+                                "term_vector": "with_positions_offsets_payloads",
+                                "store" : "yes",
+                                "index_analyzer" : "myAnalyzer1"
+                         },
+                    "text": {
+                                "type": "string",
+                                "term_vector": "with_positions_offsets_payloads",
+                                "store" : "yes",
+                                "index_analyzer" : "myAnalyzer1"
+                         }
+                 }
+            }
+    }
+    });
 }
 function createIndex(client) {
     client.index({
         index: 'notes',
         type: 'document',
         body: {
-            name: 'Tema 2',
-            text: texto
+            "title": 'Tema 2',
+            "text": texto
         }
     }, function (error, response) {
         console.log(response);
@@ -64,19 +97,29 @@ function search(client,texto/*,callback*/,res) {
         body: {
             query: {
                 query_string:{
-                   query:texto
-                }
-            }
+                   query:texto,
+                   "analyzer" :"myAnalyzer"
+                   
+                },
+                
+            },
+        "highlight" : {
+            "fragment_size" : 300,
+            "fields" : {
+            "text" : {}
         }
+    }
+            
+        },
+        
     }).then(function (resp) {
+        console.log(resp.hits.hits)
         res.json(resp.hits.hits);
     }, function (err) {
         console.log(err.message);
     });
 }
 function deleteIndex(client){
-    client.indices.delete({index: 'indiceABorrar'});
+    client.indices.delete({index: 'notes'});
 }
-
-
 module.exports = router;

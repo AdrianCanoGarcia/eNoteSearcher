@@ -1,0 +1,37 @@
+#!/bin/bash
+curl -XDELETE 'http://localhost:9200/notes'
+echo
+curl -XPOST 'http://localhost:9200/notes' -d '
+{
+    index:"notes",
+    type: "document",
+    "settings" : {
+        "analysis" : {
+            "analyzer" : {
+                "myAnalyzer" : {"tokenizer" : "standard","filter" : ["asciifolding","lowercase"]}
+            },
+            "filter" : {
+                "my_snow" : {
+                    "type" : "snowball",
+                    "language" : "spanish"
+                }
+            }
+        }
+    },
+    "mappings" : {
+        "note": {
+                "properties": {
+                    "title": {
+                                "type": "string",
+                                "store" : "yes",
+                                "index_analyzer" : "myAnalyzer"
+                         },
+                    "text": {
+                                "type": "string",
+                                "store" : "yes",
+                                "index_analyzer" : "myAnalyzer"
+                         }
+                 }
+            }
+    }
+    }'
