@@ -1,0 +1,9 @@
+
+#
+#synonyms
+#
+vaca, buey, mula, caballo => bueyes
+vientos => aires, huracan, viento
+pueblo, aldea, pueblal
+
+#Fichero de configuracion de synonyms esta en la ruta /etc/elasticsearch/synonyms.txt

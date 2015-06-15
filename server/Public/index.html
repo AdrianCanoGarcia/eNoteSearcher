@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>eNoteSearcher</title>
         <meta name="theme-color" content="#5607cd">
         <link rel="icon" sizes="192x192" href="../favicon.png">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="#5607cd">
+        
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=no">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/myCss.css">
+        <link rel="shortcut icon" type="image/png" href="./favicon.png">
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="Functions.js"></script>
     </head>
@@ -18,8 +21,9 @@
                 <div class="col-xs-0 col-md-3"></div>
                 <div id="searherContainer" class="col-xs-12 col-md-6">
                     <!--<h1>(Logo)</h1>-->
-                    <a href='https://enotesearcher-adrian93.c9.io/'><img id="logo1" src="img/logo.1.3.png"></a>
+                    <a id="logo2" href='https://enotesearcher-adrian93.c9.io/'><img id="logo1" src="img/logo.1.3.png"></a>
                     <span id="helpIcon" class="glyphicon glyphicon-question-sign" onclick="showHelp()"></span>
+                    
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-search" style="cursor:pointer" onclick="checkEmptyField()"></i></span>
                         <input id="textToFind" type="text" class="form-control" placeholder="ex: Trigonometría" onkeypress="checkIfEnter(event)" aria-describedby="sizing-addon1" required>
@@ -28,10 +32,19 @@
                     <div class="alert alert-danger" id="alert1" role="alert">No data selected</div>
                 </div>
             </div>
+            <div class="row" id="container2" style="margin-top: 30px;">
+                    <div   class="col-xs-0 col-md-1"></div>
+                    <div id="completeResult" class="col-xs-10 col-md-9"></div>
+                </div>
             <div id="result"></div>
 
         </div>
-
+         <div class="row" id="copyright">
+        <div class="col-xs-0 col-md-3"></div>
+        <div id="textCopyRight" class="col-xs-12 col-md-6">
+            © 2015 enotesearcher-adrian93.c9.io Todos los derechos reservados.
+        </div>
+        </div>
 
     </body>       
 </html> 

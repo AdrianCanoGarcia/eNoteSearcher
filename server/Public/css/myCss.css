@@ -54,3 +54,33 @@ em{
 a{
     cursor:pointer;
 }
+#completeTitle{
+    font-size: 25px;
+    color:#5607cd;
+    text-align:center;
+}
+hr{
+    border-top: 1px solid #5607cd !important;
+}
+#completeResult{
+    margin-left: 35px;
+}
+#completeText{
+    font-size: 16px;
+}
+#arrowBack{
+    top: 20px;
+  color: #5607cd;
+  font-size: 20px;
+  margin-bottom:30px;
+}
+#textCopyRight{
+    text-align: center;
+  position: relative;
+  top: 100px;
+  color: #5607cd;
+}
+.row {
+   margin-right: 0px;
+   margin-left: 0px; 
+}

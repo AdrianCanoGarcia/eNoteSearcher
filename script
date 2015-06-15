@@ -8,13 +8,22 @@ curl -XPOST 'http://localhost:9200/notes' -d '
     "settings" : {
         "analysis" : {
             "analyzer" : {
-                "myAnalyzer" : {"tokenizer" : "standard","filter" : ["asciifolding","lowercase"]}
+                "myAnalyzer" : {
+                    "tokenizer" : "standard",
+                    "filter" : ["asciifolding","lowercase","synonym","my_stop"]
+                }
             },
             "filter" : {
-                "my_snow" : {
-                    "type" : "snowball",
-                    "language" : "spanish"
+                "synonym" : {
+                    "type" : "synonym",
+                    "synonyms_path" : "synonyms.txt"
+                },
+                "my_stop": {
+                    "type":"stop",
+                    "stopwords": ["el", "lo", "las","los", "a", "y"]
                 }
+            }
+            
             }
         }
     },

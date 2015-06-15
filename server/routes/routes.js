@@ -15,75 +15,46 @@ fs.readFile(ruta, 'utf8', function(err, data) {
     }
 });
 
-
 /* ROUTES */
-router.get('/', buscarTexto);
+router.get('/', searchText);
+router.get('/searchById', searchById);
 
-function buscarTexto(req, res) {
+function searchText(req, res) {
     //res.json("holi");
     //res.json(req.query.value);
     /*createClient(req.query.value,function(response){
         res.json(response);
     });*/
     createClient(req.query.value, res);
-    
 }
-
-
-
-
-
+function searchById(req, res){
+    var client = new elasticsearch.Client({
+        host: 'localhost:9200',
+        log: 'trace'
+    });
+    client.get({
+        index:"notes",
+        type: "document",
+        id: req.query.value
+    }, function (error, response) {
+        res.json(response._source)
+    });
+}
 function createClient(texto1/*,callback*/,res) {
     var client = new elasticsearch.Client({
         host: 'localhost:9200',
         log: 'trace'
     });
     return search(client,texto1/*,callback*/,res);
-    // deleteIndex(client);
-    //putMappings(client);
+    //deleteIndex(client);
     //createIndex(client);
-    
-}
-function putMappings(client){
-    client.indices.create({
-    index:"notes",
-    type: "document",
-    "settings" : {
-        "analysis" : {
-            "analyzer" : {
-                "myAnalyzer" : {"tokenizer" : "standard","filter" : [ "snowball", "asciifolding"/*, "ebes_stop"*/ ]}
-            }/*,
-            "filter" : {
-                "ebes_stop" : {"type" : "stop","stopwords_path" : "ebes_stop.txt"}
-            }*/
-        }
-    },
-    "mappings" : {
-        "note": {
-                "properties": {
-                    "title": {
-                                "type": "string",
-                                "term_vector": "with_positions_offsets_payloads",
-                                "store" : "yes",
-                                "index_analyzer" : "myAnalyzer1"
-                         },
-                    "text": {
-                                "type": "string",
-                                "term_vector": "with_positions_offsets_payloads",
-                                "store" : "yes",
-                                "index_analyzer" : "myAnalyzer1"
-                         }
-                 }
-            }
-    }
-    });
 }
 function createIndex(client) {
     client.index({
         index: 'notes',
         type: 'document',
         body: {
-            "title": 'Tema 2',
+            "title": 'Vientos del puebl',
             "text": texto
         }
     }, function (error, response) {
@@ -98,13 +69,13 @@ function search(client,texto/*,callback*/,res) {
             query: {
                 query_string:{
                    query:texto,
-                   "analyzer" :"myAnalyzer"
+                   "analyzer":"myAnalyzer"
                    
                 },
                 
             },
         "highlight" : {
-            "fragment_size" : 300,
+            "fragment_size":300,
             "fields" : {
             "text" : {}
         }
